@@ -15,8 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Steven Mediterraneo",
-  description: "Portfolio website for Steven Mediterraneo, showcasing projects and skills in software development.",
+  title: "Steven Mediterraneo | Backend Engineer",
+  description:
+    "Backend engineer specializing in Go, distributed systems, AWS, and cloud infrastructure.",
 };
 
 export default function RootLayout({
