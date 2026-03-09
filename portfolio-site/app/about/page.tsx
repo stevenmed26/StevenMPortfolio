@@ -11,7 +11,7 @@ export default function AboutPage() {
 
           <div className="relative h-32 w-32 overflow-hidden rounded-2xl border border-border">
             <Image
-              src="/profilepic.jfif"
+              src="/profilepic.jpeg"
               alt="Steven Mediterraneo"
               fill
               className="object-cover"
