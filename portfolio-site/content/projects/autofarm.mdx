@@ -1,0 +1,59 @@
+import ArchitectureDiagram from "@/components/ui/architecture-diagram";
+
+## Overview
+
+AutoFarm is my distributed systems portfolio project focused on backend architecture, service communication, and infrastructure-aware design.
+
+<ArchitectureDiagram
+  title="AutoFarm Architecture"
+  description="AutoFarm is structured around multiple Go services, asynchronous task execution, and real-time state updates for simulation visibility."
+  nodes={[
+    {
+      id: "client",
+      title: "Dashboard Client",
+      subtitle: "Consumes live updates and presents simulation state.",
+    },
+    {
+      id: "api",
+      title: "API / Gateway Service",
+      subtitle: "Accepts requests and coordinates simulation actions.",
+    },
+    {
+      id: "workers",
+      title: "Worker Services",
+      subtitle: "Execute simulation tasks and process scheduled jobs.",
+    },
+    {
+      id: "state",
+      title: "State Manager",
+      subtitle: "Maintains authoritative simulation state.",
+    },
+    {
+      id: "stream",
+      title: "WebSocket Stream",
+      subtitle: "Pushes real-time updates to connected clients.",
+    },
+    {
+      id: "infra",
+      title: "Docker / Terraform Layer",
+      subtitle: "Supports repeatable deployment and environment setup.",
+    },
+  ]}
+  connections={[
+    { from: "client", to: "api", label: "User actions / requests" },
+    { from: "api", to: "workers", label: "Dispatches work" },
+    { from: "workers", to: "state", label: "Processes simulation changes" },
+    { from: "state", to: "stream", label: "Publishes updated state" },
+    { from: "stream", to: "client", label: "Real-time events" },
+    { from: "infra", to: "api", label: "Deployment / runtime environment" },
+    { from: "infra", to: "workers", label: "Container orchestration" },
+  ]}
+/>
+
+## What I built
+
+- Multiple Go services with defined responsibilities
+- gRPC-based service communication
+- Asynchronous workers for task scheduling and state propagation
+- Real-time event streaming for UI updates
+- Dockerized local development and deployment workflows

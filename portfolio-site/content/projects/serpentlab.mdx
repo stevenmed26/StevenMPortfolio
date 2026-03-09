@@ -1,0 +1,52 @@
+import ArchitectureDiagram from "@/components/ui/architecture-diagram";
+
+## Overview
+
+SerpentLab is a hybrid Go and Python project built around reinforcement learning experiments and simulation design.
+
+<ArchitectureDiagram
+  title="SerpentLab Architecture"
+  description="SerpentLab separates simulation logic, training workflows, and orchestration so experiments can evolve without tightly coupling the system."
+  nodes={[
+    {
+      id: "sim",
+      title: "Simulation Engine",
+      subtitle: "Runs game state and environment transitions.",
+    },
+    {
+      id: "trainer",
+      title: "Training Loop",
+      subtitle: "Consumes environment signals and updates model behavior.",
+    },
+    {
+      id: "controller",
+      title: "Experiment Controller",
+      subtitle: "Coordinates training runs and configuration.",
+    },
+    {
+      id: "metrics",
+      title: "Metrics / Evaluation",
+      subtitle: "Tracks reward, performance, and run outcomes.",
+    },
+    {
+      id: "config",
+      title: "Config Layer",
+      subtitle: "Defines experiment settings and run parameters.",
+    },
+  ]}
+  connections={[
+    { from: "config", to: "controller", label: "Experiment configuration" },
+    { from: "controller", to: "sim", label: "Starts simulation runs" },
+    { from: "sim", to: "trainer", label: "State / reward signals" },
+    { from: "trainer", to: "sim", label: "Action decisions" },
+    { from: "trainer", to: "metrics", label: "Training results" },
+    { from: "controller", to: "metrics", label: "Run metadata" },
+  ]}
+/>
+
+## What I built
+
+- a simulation-oriented environment for experimentation
+- separation between simulation logic and training logic
+- service-friendly boundaries that make the project easier to evolve
+- a playground for testing ideas around AI workflows and systems design

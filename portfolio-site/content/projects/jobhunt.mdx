@@ -1,0 +1,63 @@
+import ArchitectureDiagram from "@/components/ui/architecture-diagram";
+
+## Overview
+
+JobHunt is a backend-driven job intelligence tool built to ingest, normalize, score, and expose job lead data through a usable product interface.
+
+<ArchitectureDiagram
+  title="JobHunt Architecture"
+  description="JobHunt is centered around ingestion, normalization, scoring, and API delivery so job data can be processed repeatedly and surfaced in a useful interface."
+  nodes={[
+    {
+      id: "sources",
+      title: "Job Sources",
+      subtitle: "Email inboxes, web pages, and other lead inputs.",
+    },
+    {
+      id: "ingest",
+      title: "Ingestion Pipeline",
+      subtitle: "Pulls raw job data into the system.",
+    },
+    {
+      id: "normalize",
+      title: "Normalization / Deduplication",
+      subtitle: "Cleans and standardizes inconsistent source data.",
+    },
+    {
+      id: "score",
+      title: "Scoring Engine",
+      subtitle: "Ranks and filters jobs based on configurable rules.",
+    },
+    {
+      id: "api",
+      title: "REST API",
+      subtitle: "Serves processed jobs to the client application.",
+    },
+    {
+      id: "client",
+      title: "Desktop Client",
+      subtitle: "Displays jobs, filters, and workflow state.",
+    },
+    {
+      id: "db",
+      title: "SQLite Storage",
+      subtitle: "Stores normalized job and application records.",
+    },
+  ]}
+  connections={[
+    { from: "sources", to: "ingest", label: "Raw listings / leads" },
+    { from: "ingest", to: "normalize", label: "Imported records" },
+    { from: "normalize", to: "db", label: "Persisted canonical data" },
+    { from: "db", to: "score", label: "Stored jobs" },
+    { from: "score", to: "api", label: "Filtered / ranked results" },
+    { from: "api", to: "client", label: "Structured responses" },
+  ]}
+/>
+
+## What I built
+
+- ingestion flows for job leads from multiple sources
+- normalization and deduplication logic
+- backend APIs consumed by a desktop client
+- configurable scoring and filtering workflows
+- a structure designed for repeatable scheduled runs
