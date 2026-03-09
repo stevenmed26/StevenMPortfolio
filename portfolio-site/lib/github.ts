@@ -1,18 +1,3 @@
-type GitHubEvent = {
-  id: string;
-  type: string;
-  repo: {
-    name: string;
-  };
-  created_at: string;
-  payload?: {
-    commits?: Array<{
-      sha: string;
-      message: string;
-    }>;
-  };
-};
-
 export type RecentActivityItem = {
   id: string;
   repo: string;
@@ -23,68 +8,85 @@ export type RecentActivityItem = {
   url: string;
 };
 
+type GitHubCommitResponse = {
+  sha: string;
+  html_url: string;
+  commit: {
+    message: string;
+    author: {
+      date: string;
+    };
+  };
+};
+
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-export async function getRecentGitHubActivity(): Promise<RecentActivityItem[]> {
-  if (!GITHUB_USERNAME) {
-    return [];
-  }
+const FEATURED_REPOS = ["autofarm", "jobhunt", "serpentlab"];
+
+async function fetchRepoCommits(repo: string): Promise<RecentActivityItem[]> {
+  if (!GITHUB_USERNAME) return [];
 
   const res = await fetch(
-    `https://api.github.com/users/${GITHUB_USERNAME}/events/public`,
+    `https://api.github.com/repos/${GITHUB_USERNAME}/${repo}/commits?per_page=3`,
     {
       headers: {
         Accept: "application/vnd.github+json",
-        ...(GITHUB_TOKEN
-          ? { Authorization: `Bearer ${GITHUB_TOKEN}` }
-          : {}),
+        ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {}),
       },
       next: { revalidate: 900 },
     }
   );
 
   if (!res.ok) {
+    console.log(`failed commits fetch for ${repo}:`, res.status);
     return [];
   }
 
-  const events = (await res.json()) as GitHubEvent[];
+  const commits = (await res.json()) as GitHubCommitResponse[];
 
-  const pushEvents = events.filter(
-    (event) => event.type === "PushEvent" && (event.payload?.commits?.length ?? 0) > 0
-  );
+  return commits.map((commit) => {
+    const firstLine = commit.commit.message.split("\n")[0]?.trim() || "Recent commit";
 
-  const items: RecentActivityItem[] = [];
+    return {
+      id: `${repo}-${commit.sha}`,
+      repo: `${GITHUB_USERNAME}/${repo}`,
+      repoName: repo,
+      message: firstLine,
+      sha: commit.sha.slice(0, 7),
+      createdAt: commit.commit.author.date,
+      url: commit.html_url,
+    };
+  });
+}
 
-  for (const event of pushEvents) {
-    const commits = event.payload?.commits ?? [];
-
-    for (const commit of commits.slice(0, 2)) {
-      console.log("commit message", commit.message);
-      if (!commit.message?.trim()) continue;
-
-      const repoName = event.repo.name.split("/")[1] ?? event.repo.name;
-
-      items.push({
-        id: `${event.id}-${commit.sha}`,
-        repo: event.repo.name,
-        repoName,
-        message: commit.message,
-        sha: commit.sha.slice(0, 7),
-        createdAt: event.created_at,
-        url: `https://github.com/${event.repo.name}/commit/${commit.sha}`,
-      });
-    }
+export async function getRecentGitHubActivity(): Promise<RecentActivityItem[]> {
+  if (!GITHUB_USERNAME) {
+    console.log("missing username");
+    return [];
   }
 
+  const allCommits = await Promise.all(
+    FEATURED_REPOS.map((repo) => fetchRepoCommits(repo))
+  );
+
+  const items = allCommits
+    .flat()
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    .slice(0, 5);
+
   console.log(
-    "items",
+    "recent activity items",
     items.map((item) => ({
-        repo: item.repoName,
-        sha: item.sha,
-        message: item.message,
+      repo: item.repoName,
+      sha: item.sha,
+      message: item.message,
+      createdAt: item.createdAt,
     }))
-    );
-  console.log("items length", items.length);
-  return items.slice(0, 5);
+  );
+
+  return items;
 }
