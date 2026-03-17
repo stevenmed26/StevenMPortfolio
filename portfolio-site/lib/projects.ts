@@ -31,11 +31,11 @@ export const projects: ProjectMeta[] = [
   {
     slug: "jobhunt",
     title: "JobHunt",
-    subtitle: "Backend-Driven Job Intelligence Tool",
+    subtitle: "Desktop Job Intelligence & Auto Apply Platform",
     summary:
-      "A desktop-oriented backend platform for ingesting job leads, deduplicating records, and exposing structured APIs.",
-    stack: ["Go", "SQLite", "IMAP", "REST", "Tauri", "React"],
-    github: "https://github.com/stevenmed26/jobhunt",
+      "A Tauri desktop app with a Go engine backend for multi-source job scraping, YAML-driven scoring, and an AI-assisted Auto Apply pipeline powered by Playwright and Groq.",
+    stack: ["Go", "SQLite", "React", "TypeScript", "Tauri", "Playwright", "Groq AI", "IMAP", "REST"],
+    github: "https://github.com/stevenmed26/JobHunt",
   },
 ];
 

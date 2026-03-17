@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 const skillGroups = {
-  Languages: ["Go (Golang)", "Python", "Java", "TypeScript", "C#"],
+  Languages: ["Go (Golang)", "Python", "Java", "TypeScript"],
   Backend: ["REST APIs", "gRPC", "WebSockets", "Microservices", "Background Workers"],
   Data: ["PostgreSQL", "SQLite", "MongoDB"],
   "Cloud & DevOps": ["Docker", "Kubernetes", "GitHub Actions", "Linux", "Terraform", "AWS"],
@@ -112,6 +112,53 @@ export default function ResumePage() {
                 <div className="flex flex-col gap-1 md:flex-row md:items-start md:justify-between">
                   <div>
                     <h3 className="text-lg font-semibold">
+                      Backend Engineer (Contract)
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Independent Contract Work • Remote
+                    </p>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground">
+                    October 2025 – Present
+                  </p>
+                </div>
+
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-muted-foreground">
+                  <li>
+                    Architected backend infrastructure on AWS using Terraform and deployed
+                    containerized services via Docker and Kubernetes, designing 3 isolated
+                    environments (dev, staging, production) with reproducible release pipelines.
+                  </li>
+                  <li>
+                    Designed and implemented REST APIs in Go processing 10K+ records per
+                    scheduled run with idempotent retry logic and deterministic execution
+                    to prevent data duplication across runs.
+                  </li>
+                  <li>
+                    Owned auth architecture for distributed backend services using OAuth2
+                    and JWT, enforcing scoped access controls across 20+ REST API endpoints
+                    with security boundaries designed around service-level trust requirements.
+                  </li>
+                  <li>
+                    Designed asynchronous background workers in Go selecting HTTP and
+                    WebSocket protocols based on task latency needs, executing 500+ automated
+                    tasks per day with built-in failure isolation and retry guarantees.
+                  </li>
+                  <li>
+                    Established observability from scratch for SQL-backed services by
+                    designing structured logging schemas and metrics instrumentation, giving
+                    actionable visibility into systems processing thousands of events per run.
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-3xl border-border/60 bg-card/70">
+              <CardContent className="p-6">
+                <div className="flex flex-col gap-1 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold">
                       Backend Software Engineer
                     </h3>
                     <p className="text-sm text-muted-foreground">
@@ -126,26 +173,24 @@ export default function ResumePage() {
 
                 <ul className="mt-4 list-disc space-y-2 pl-5 text-muted-foreground">
                   <li>
-                    Designed and maintained Go backend validation services that
-                    exercised gRPC and REST APIs, verified JSON contracts, and
-                    detected ingestion defects in asynchronous processing
-                    pipelines.
+                    Developed Go backend services for distributed telemetry platforms
+                    ingesting data from 10K+ IoT devices, designing gRPC and REST API
+                    integrations across multiple production microservices.
                   </li>
                   <li>
-                    Deployed AWS infrastructure using Terraform, including EKS
-                    services to support CI/CD pipelines and staging environments
-                    for backend services.
+                    Owned AWS infrastructure with Terraform and drove deployment of backend
+                    workloads through Docker and Kubernetes (EKS), sustaining CI/CD pipelines
+                    executing 1K+ automated validation jobs weekly.
                   </li>
                   <li>
-                    Investigated backend reliability issues using Prometheus
-                    metrics and centralized service logs to diagnose timing drift
-                    and state desynchronization across distributed services,
-                    improving ingestion correctness and repeatability.
+                    Led distributed system failure diagnosis using Prometheus metrics and
+                    centralized logging, identifying backend state drift across services
+                    processing millions of telemetry events.
                   </li>
                   <li>
-                    Built Python diagnostic tooling and automated regression
-                    workflows to surface backend regressions early, reducing
-                    manual verification and improving release confidence.
+                    Architected TypeScript/Node.js backend services and React dashboards
+                    exposing REST APIs adopted by 20+ engineers for telemetry inspection
+                    and debugging workflows.
                   </li>
                 </ul>
               </CardContent>
@@ -237,22 +282,26 @@ export default function ResumePage() {
                     JobHunt — Backend Engineer / System Owner
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Go, SQLite, IMAP, REST, Tauri, React • 2025 – Present
+                    Go, SQLite, React, TypeScript, Tauri, Playwright, Groq AI • 2025 – Present
                   </p>
                 </div>
 
                 <ul className="mt-4 list-disc space-y-2 pl-5 text-muted-foreground">
                   <li>
-                    Designed and operated a backend ingestion pipeline that
-                    processes job leads from IMAP and web sources; implemented
-                    idempotent ingestion, deduplication, and safe reprocessing
-                    to support repeatable scheduled runs.
+                    Designed and operated a backend ingestion pipeline processing job leads
+                    from Greenhouse, Lever, Workday, SmartRecruiters, and IMAP/LinkedIn email;
+                    implemented idempotent ingestion, deduplication, and safe reprocessing
+                    for repeatable scheduled runs.
                   </li>
                   <li>
-                    Built configurable scoring and filtering logic and exposed
-                    REST APIs consumed by a desktop client; emphasized
-                    debuggability, failure isolation, and deterministic behavior
-                    across runs.
+                    Built a two-phase Auto Apply pipeline: Playwright scrapes real application
+                    form fields, Groq AI generates fill values, user reviews before Playwright
+                    injects and submits — with OS keyring storage for secrets.
+                  </li>
+                  <li>
+                    Exposed REST APIs and an SSE live-update stream consumed by a Tauri desktop
+                    client; emphasized debuggability, failure isolation, and deterministic
+                    behavior across runs.
                   </li>
                 </ul>
 

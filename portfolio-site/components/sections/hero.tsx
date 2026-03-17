@@ -19,7 +19,7 @@ const featuredProjects = [
   },
   {
     name: "JobHunt",
-    blurb: "Desktop job intelligence platform with scraping, structured pipelines, and a product-minded UI.",
+    blurb: "Tauri desktop app with a Go engine: multi-source scraping, YAML scoring, and an AI-assisted Auto Apply pipeline via Playwright and Groq.",
   },
 ];
 
@@ -212,4 +212,3 @@ function StatCard({ label, value }: StatCardProps) {
     </div>
   );
 }
-
