@@ -25,7 +25,7 @@ export default function AboutPage() {
             </p>
 
             <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Hi, I'm Steven
+              Hi, I&apos;m Steven
             </h1>
 
             <p className="mt-3 text-muted-foreground">

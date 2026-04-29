@@ -7,6 +7,8 @@ const projectContent = {
   autofarm: () => import("@/content/projects/autofarm.mdx"),
   serpentlab: () => import("@/content/projects/serpentlab.mdx"),
   jobhunt: () => import("@/content/projects/jobhunt.mdx"),
+  investify: () => import("@/content/projects/investify.mdx"),
+  mybudget: () => import("@/content/projects/mybudget.mdx"),
 };
 
 type Props = {

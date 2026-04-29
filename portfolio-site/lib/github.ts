@@ -22,7 +22,7 @@ type GitHubCommitResponse = {
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-const FEATURED_REPOS = ["autofarm", "jobhunt", "serpentlab"];
+const FEATURED_REPOS = ["autofarm", "jobhunt", "serpentlab", "Investify", "myBudget"];
 
 async function fetchRepoCommits(repo: string): Promise<RecentActivityItem[]> {
   if (!GITHUB_USERNAME) return [];

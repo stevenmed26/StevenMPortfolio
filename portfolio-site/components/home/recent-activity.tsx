@@ -26,6 +26,10 @@ function repoAccent(repoName: string) {
       return "bg-sky-500/12 text-sky-300 border-sky-500/20";
     case "serpentlab":
       return "bg-violet-500/12 text-violet-300 border-violet-500/20";
+    case "investify":
+      return "bg-lime-500/12 text-lime-300 border-lime-500/20";
+    case "mybudget":
+      return "bg-amber-500/12 text-amber-300 border-amber-500/20";
     default:
       return "bg-primary/10 text-primary border-primary/20";
   }

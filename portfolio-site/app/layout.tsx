@@ -25,7 +25,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen bg-background text-foreground">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background text-foreground`}
+      >
         <div className="flex min-h-screen flex-col">
           <Navbar />
           <div className="flex-1">{children}</div>

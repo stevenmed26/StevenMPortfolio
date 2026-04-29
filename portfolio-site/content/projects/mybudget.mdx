@@ -1,0 +1,60 @@
+import ArchitectureDiagram from "@/components/ui/architecture-diagram";
+
+## Overview
+
+myBudget is a mobile-first personal finance platform built around clean budget tracking, recurring payment awareness, category analytics, and recommendation-driven planning. The system pairs an Expo React Native client with a Go API that keeps budgeting, transactions, analytics, profile, and onboarding workflows in explicit service boundaries.
+
+<ArchitectureDiagram
+  title="myBudget Architecture"
+  description="myBudget uses an Expo mobile client backed by a Go API with authenticated finance workflows, analytics aggregation, recurring payment logic, and recommendation services."
+  nodes={[
+    {
+      id: "mobile",
+      title: "Expo Mobile App",
+      subtitle: "Home, analytics, categories, onboarding, login, profile, and budgeting screens.",
+    },
+    {
+      id: "api",
+      title: "Go API",
+      subtitle: "Chi server with auth, transactions, categories, dashboard, recurring, taxes, and recommendations.",
+    },
+    {
+      id: "auth",
+      title: "Auth Layer",
+      subtitle: "JWT access flows, refresh, email verification, and protected user routes.",
+    },
+    {
+      id: "budget",
+      title: "Budget Domain",
+      subtitle: "Profiles, category budgets, transactions, period close, recurring rules, and tax estimates.",
+    },
+    {
+      id: "analytics",
+      title: "Analytics & Insights",
+      subtitle: "Category breakdowns, monthly trends, saved totals, spending totals, and budget suggestions.",
+    },
+    {
+      id: "db",
+      title: "PostgreSQL",
+      subtitle: "Persistence for users, profiles, categories, budgets, transactions, recurring rules, and analytics inputs.",
+    },
+  ]}
+  connections={[
+    { from: "mobile", to: "api", label: "Authenticated app requests" },
+    { from: "api", to: "auth", label: "Identity and route protection" },
+    { from: "api", to: "budget", label: "Budget workflows" },
+    { from: "budget", to: "analytics", label: "Spending history" },
+    { from: "analytics", to: "mobile", label: "Charts and suggestions" },
+    { from: "api", to: "db", label: "Persistent records" },
+    { from: "budget", to: "db", label: "Transactions and plans" },
+  ]}
+/>
+
+## What I built
+
+- Go API with JWT auth, onboarding, profile, categories, transactions, recurring rules, dashboard summaries, period close, analytics, and recommendations
+- Expo React Native app with focused screens for overview, analytics, categories, onboarding, login, and profile management
+- Budget domain logic for tracking cadence, category progress, recurring payment handling, tax-aware income estimates, and period close workflows
+- Smart budget recommendation engine that uses spending history, recurring costs, outlier-adjusted totals, confidence scoring, and income-fit constraints
+- Mobile UI components for charts, progress rows, budget hero cards, color selection, calendar picking, stat cards, and secure local storage
+- Test coverage around auth, migrations, recommendations, recurring logic, server setup, configuration, and tax estimation

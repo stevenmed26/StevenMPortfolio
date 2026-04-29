@@ -9,8 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
-import Image from "next/image";
-
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
@@ -31,10 +29,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   return (
     <header
@@ -102,6 +96,7 @@ export default function Navbar() {
                     <Link
                       key={item.href}
                       href={item.href}
+                      onClick={() => setOpen(false)}
                       className={cn(
                         "rounded-2xl px-4 py-3 text-sm font-medium transition-colors duration-200",
                         isActive
@@ -115,7 +110,9 @@ export default function Navbar() {
                 })}
 
                 <Button asChild className="mt-4 rounded-2xl">
-                  <Link href="/contact">Let&apos;s Talk</Link>
+                  <Link href="/contact" onClick={() => setOpen(false)}>
+                    Let&apos;s Talk
+                  </Link>
                 </Button>
               </div>
             </SheetContent>

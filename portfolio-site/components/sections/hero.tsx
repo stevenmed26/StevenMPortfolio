@@ -7,21 +7,7 @@ import { ArrowRight, Download, Github, Linkedin, Server, Sparkles } from "lucide
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-
-const featuredProjects = [
-  {
-    name: "AutoFarm",
-    blurb: "Distributed Go microservices simulation platform with gRPC, Docker, and cloud deployment patterns.",
-  },
-  {
-    name: "SerpentLab",
-    blurb: "Go + Python reinforcement learning playground with service boundaries, training loops, and experiment workflows.",
-  },
-  {
-    name: "JobHunt",
-    blurb: "Tauri desktop app with a Go engine: multi-source scraping, YAML scoring, and an AI-assisted Auto Apply pipeline via Playwright and Groq.",
-  },
-];
+import { projects } from "@/lib/projects";
 
 const stack = ["Go", "AWS", "Docker", "Terraform", "gRPC", "React", "TypeScript"];
 
@@ -168,21 +154,23 @@ export default function PortfolioHero() {
                     <div className="rounded-2xl border border-border/60 bg-background/70 p-4">
                       <p className="text-sm font-medium">Featured Work</p>
                       <div className="mt-4 space-y-3">
-                        {featuredProjects.map((project, index) => (
+                        {projects.map((project, index) => (
                           <motion.div
-                            key={project.name}
+                            key={project.slug}
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.55, delay: 0.45 + index * 0.08, ease: "easeOut" }}
-                            className="group rounded-2xl border border-border/60 bg-background/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
                           >
-                            <div className="flex items-start justify-between gap-3">
+                            <Link
+                              href={`/projects/${project.slug}`}
+                              className="group flex items-start justify-between gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+                            >
                               <div>
-                                <p className="font-medium">{project.name}</p>
-                                <p className="mt-1 text-sm leading-6 text-muted-foreground">{project.blurb}</p>
+                                <p className="font-medium">{project.title}</p>
+                                <p className="mt-1 text-sm leading-6 text-muted-foreground">{project.summary}</p>
                               </div>
                               <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-primary" />
-                            </div>
+                            </Link>
                           </motion.div>
                         ))}
                       </div>

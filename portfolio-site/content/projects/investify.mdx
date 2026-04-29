@@ -1,0 +1,60 @@
+import ArchitectureDiagram from "@/components/ui/architecture-diagram";
+
+## Overview
+
+Investify is a full-stack market intelligence platform built around ticker discovery, historical price ingestion, technical feature generation, and ML-backed predictions. It separates the production API, model service, and web dashboard so market data workflows can run independently from the user-facing experience.
+
+<ArchitectureDiagram
+  title="Investify Architecture"
+  description="Investify connects a Next.js dashboard to a Go API, Postgres data layer, and FastAPI ML service for daily prediction and portfolio intelligence workflows."
+  nodes={[
+    {
+      id: "web",
+      title: "Next.js Dashboard",
+      subtitle: "Ticker browsing, holdings management, charts, confidence gauges, and admin controls.",
+    },
+    {
+      id: "api",
+      title: "Go API",
+      subtitle: "Chi router with auth, holdings, ticker, price, feature, and admin endpoints.",
+    },
+    {
+      id: "market",
+      title: "Market Data Providers",
+      subtitle: "Twelve Data integration with a synthetic development provider fallback.",
+    },
+    {
+      id: "features",
+      title: "Feature Pipeline",
+      subtitle: "Backfills historical prices and computes SMA, EMA, RSI, MACD, momentum, and volatility features.",
+    },
+    {
+      id: "ml",
+      title: "FastAPI ML Service",
+      subtitle: "Prediction and training routes powered by pandas, scikit-learn, and stored model artifacts.",
+    },
+    {
+      id: "db",
+      title: "PostgreSQL",
+      subtitle: "Stores users, tickers, holdings, prices, features, credentials, and pipeline jobs.",
+    },
+  ]}
+  connections={[
+    { from: "web", to: "api", label: "Dashboard requests" },
+    { from: "api", to: "market", label: "Price ingestion" },
+    { from: "market", to: "features", label: "Historical prices" },
+    { from: "features", to: "db", label: "Technical indicators" },
+    { from: "api", to: "ml", label: "Prediction / train calls" },
+    { from: "ml", to: "db", label: "Training data and predictions" },
+    { from: "api", to: "db", label: "Auth, holdings, tickers" },
+  ]}
+/>
+
+## What I built
+
+- Go backend with JWT auth, role-aware admin routes, holdings CRUD, ticker management, market data ingestion, and encrypted provider credentials
+- FastAPI ML service with model training jobs, prediction endpoints, rule-based fallback logic, and stored scikit-learn artifacts
+- Technical analysis pipeline for SMA, EMA, RSI, MACD, momentum, volatility, historical prices, and feature snapshots
+- Next.js dashboard for active tickers, ticker detail pages, holdings, training controls, price charts, confidence gauges, and feature visibility
+- Postgres-backed migrations covering users, API credentials, ticker metadata, constraints, roles, and pipeline jobs
+- Dockerized service boundaries for the API, ML service, and web app
